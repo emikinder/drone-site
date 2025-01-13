@@ -1,6 +1,6 @@
-import * as THREE from "three";
-import { GLTFLoader } from "three/examples/jsm/Addons.js";
-import { gsap } from "gsap";
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/Addons.js';
+import { gsap } from 'gsap';
 
 const camera = new THREE.PerspectiveCamera(
   10,
@@ -9,36 +9,40 @@ const camera = new THREE.PerspectiveCamera(
   1000
 );
 
-camera.position.z = 4;
+camera.position.z = 3;
 
 const scene = new THREE.Scene();
 let drone;
 let mixer;
 const loader = new GLTFLoader();
 loader.load(
-  "animated_drone.glb",
+  'animated_drone.glb',
   function (gltf) {
     drone = gltf.scene;
-    drone.animations = gltf.animations;
     scene.add(drone);
+
     mixer = new THREE.AnimationMixer(drone);
     mixer.clipAction(gltf.animations[0]).play();
     modelMove();
   },
   function (xhr) {
-    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+    console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
   },
   function (error) {
-    console.log("An error happened");
+    console.log('An error happened: ', error);
   }
 );
 
-const renderer = new THREE.WebGLRenderer({ alpha: true });
+const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
-document.getElementById("three").appendChild(renderer.domElement);
+document.getElementById('three').appendChild(renderer.domElement);
 
 const light = new THREE.AmbientLight(0xffffff, 1);
 scene.add(light);
+
+// axis helper
+// const axesHelper = new THREE.AxesHelper(5);
+// scene.add(axesHelper);
 
 const topLight = new THREE.DirectionalLight(0xffffff);
 topLight.position.set(5, 5, 5);
@@ -51,31 +55,35 @@ const reRender = () => {
 };
 reRender();
 
-let arrPos = [
+const arrPos = [
   {
-    id: "section1",
-    position: { x: -0.18, y: -0.12, z: 1.2 },
+    id: 'section1',
+    position: { x: -0.18, y: -0.15, z: 0 },
+    positionMobile: { x: 0, y: -0.3, z: -2 },
     rotation: { x: 0.2, y: 0.5, z: 0 },
   },
   {
-    id: "section2",
-    position: { x: 0.3, y: -0.05, z: 0.7 },
+    id: 'section2',
+    position: { x: 0.3, y: -0.15, z: 0 },
+    positionMobile: { x: -0.18, y: -0.15, z: 0 },
     rotation: { x: 0, y: -0.5, z: 0 },
   },
   {
-    id: "section3",
-    position: { x: 0, y: -0.12, z: 2 },
+    id: 'section3',
+    position: { x: 0, y: -0.15, z: -2 },
+    positionMobile: { x: -0.18, y: -0.15, z: 0 },
     rotation: { x: 0.2, y: 0.3, z: 0 },
   },
   {
-    id: "section4",
-    position: { x: -0.3, y: 0, z: 1 },
+    id: 'section4',
+    position: { x: -0.2, y: 0, z: 0 },
+    positionMobile: { x: -0.18, y: -0.15, z: 0 },
     rotation: { x: 1.5, y: 0, z: 0 },
   },
 ];
 
 const modelMove = () => {
-  const sections = document.querySelectorAll("section");
+  const sections = document.querySelectorAll('.section');
   let currentSection;
   sections.forEach((section) => {
     const rect = section.getBoundingClientRect();
@@ -86,34 +94,36 @@ const modelMove = () => {
   let position_active = arrPos.findIndex((item) => item.id === currentSection);
   if (position_active >= 0) {
     let new_coordinates = arrPos[position_active];
-    let modifier = 1;
-    if (window.innerWidth <= 768) {
-      modifier = 0.3;
-    }
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const position = isMobile
+      ? new_coordinates.positionMobile
+      : new_coordinates.position;
+    const rotation = new_coordinates.rotation;
+
     gsap.to(drone.position, {
-      x: new_coordinates.position.x * modifier,
-      y: new_coordinates.position.y * modifier,
-      z: new_coordinates.position.z * modifier,
+      x: position.x,
+      y: position.y,
+      z: position.z,
       duration: 4,
-      ease: "power1.out",
+      ease: 'power1.out',
     });
     gsap.to(drone.rotation, {
-      x: new_coordinates.rotation.x,
-      y: new_coordinates.rotation.y,
-      z: new_coordinates.rotation.z,
-      duration: 2,
-      ease: "power1.out",
+      x: rotation.x,
+      y: rotation.y,
+      z: rotation.z,
+      duration: 4,
+      ease: 'power1.out',
     });
   }
 };
 
-window.addEventListener("scroll", () => {
+window.addEventListener('scroll', () => {
   if (drone) {
     modelMove();
   }
 });
 
-window.addEventListener("resize", () => {
+window.addEventListener('resize', () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
