@@ -104,7 +104,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     &:hover {
-      background-color: black;
+      background-color: #2d7cff;
       color: white;
     }
 
@@ -121,6 +121,21 @@ body {
   height: 40dvh;
   display: flex;
   flex-direction: column;
+
+  span {
+    position: relative;
+
+    & .underline {
+      z-index: -1;
+      position: absolute;
+      left: 0;
+      top: 32px;
+
+      @media screen and (min-width: 768px) {
+        top: 47px;
+      }
+    }
+  }
 
   h1 {
     font-size: 2.5rem;
