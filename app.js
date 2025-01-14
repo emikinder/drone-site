@@ -65,19 +65,19 @@ const arrPos = [
   {
     id: 'section2',
     position: { x: 0.3, y: -0.15, z: 0 },
-    positionMobile: { x: -0.18, y: -0.15, z: 0 },
+    positionMobile: { x: 0.1, y: 0.08, z: -2 },
     rotation: { x: 0, y: -0.5, z: 0 },
   },
   {
     id: 'section3',
     position: { x: 0, y: -0.15, z: -2 },
-    positionMobile: { x: -0.18, y: -0.15, z: 0 },
+    positionMobile: { x: -0.1, y: -0.4, z: -3 },
     rotation: { x: 0.2, y: 0.3, z: 0 },
   },
   {
     id: 'section4',
     position: { x: -0.2, y: 0, z: 0 },
-    positionMobile: { x: -0.18, y: -0.15, z: 0 },
+    positionMobile: { x: 0, y: 0.12, z: -2 },
     rotation: { x: 1.5, y: 0, z: 0 },
   },
 ];

@@ -140,7 +140,7 @@ body {
 
     h1 {
       font-size: 3.5rem;
-  
+
       @media screen and (min-width: 768px) {
         text-align: left;
       }
@@ -149,11 +149,12 @@ body {
 }
 
 #section2 {
-  border: 1px solid blue;
 }
 
 #section3 {
-  border: 1px solid green;
+  background-color: black;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
 }
 
 #section4 {
