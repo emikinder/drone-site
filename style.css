@@ -164,12 +164,80 @@ body {
 }
 
 #section2 {
+  padding: 20px;
+  background-color: lightgray;
+  align-items: end;
+
+  @media screen and (min-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+  }
+
+  & div {
+    text-wrap: balance;
+    font-size: 1.5rem;
+    width: 100%;
+    text-align: center;
+    height: 70dvh;
+    display: flex;
+    flex-direction: column;
+
+    @media screen and (min-width: 768px) {
+      text-wrap: auto;
+    }
+
+    & p {
+      margin-bottom: 10dvh;
+      width: 100%;
+    }
+
+    & b {
+      font-size: 2.5rem;
+      line-height: 1;
+      text-align: center;
+
+      & span {
+        color: blue;
+      }
+    }
+
+    @media screen and (min-width: 768px) {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 60%;
+      text-align: left;
+      align-items: center;
+    }
+  }
 }
 
 #section3 {
-  background-color: black;
-  border-top-left-radius: 50px;
-  border-top-right-radius: 50px;
+  background-color: lightgray;
+  & div {
+    padding: 20px;
+    background-color: black;
+    color: white;
+    height: 100%;
+    width: 100%;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+
+    & h1 {
+      font-size: 2rem;
+      text-align: center;
+    }
+
+    @media screen and (min-width: 768px) {
+      h1 {
+        font-size: 3.5rem;
+        text-align: center;
+      }
+    }
+  }
 }
 
 #section4 {

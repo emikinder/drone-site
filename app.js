@@ -104,15 +104,15 @@ const modelMove = () => {
       x: position.x,
       y: position.y,
       z: position.z,
-      duration: 4,
-      ease: 'power1.out',
+      duration: 3,
+      ease: 'power2.out',
     });
     gsap.to(drone.rotation, {
       x: rotation.x,
       y: rotation.y,
       z: rotation.z,
-      duration: 4,
-      ease: 'power1.out',
+      duration: 3,
+      ease: 'back.out',
     });
   }
 };
